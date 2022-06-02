@@ -7,7 +7,7 @@ const Homepage = () => {
   const [input, setInput] = useState("");
   let [data, setData] = useState(null);
   let [page, setPage] = useState(1);
-  let [currentSearch, setCurrentSearch] = useState("");
+  const [currentSearch, setCurrentSearch] = useState("");
   const auth = "563492ad6f917000010000014088ac995daa4ca6854a54b7146072e6";
   const intialURL = "https://api.pexels.com/v1/curated?page=1&per_page=15";
   const searchURL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=15&page=1`;
@@ -29,7 +29,7 @@ const Homepage = () => {
   //load more pictures
   const morepicture = async () => {
     let newUrl;
-    if (input === "") {
+    if (currentSearch === "") {
       newUrl = `https://api.pexels.com/v1/curated?page=${page}&per_page=15`;
     } else {
       newUrl = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=15&page=${page}`;
@@ -61,9 +61,10 @@ const Homepage = () => {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <Search search={() => { 
-        setCurrentSearch(input);}} 
-        setInput={setInput} />
+      <Search 
+        search={() => {setCurrentSearch(input);}}
+        setInput={setInput}
+      />
       <div className="pictures">
         {data &&
           data.map((d) => {
